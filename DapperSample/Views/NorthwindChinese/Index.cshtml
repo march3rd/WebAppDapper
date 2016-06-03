@@ -1,0 +1,177 @@
+﻿@using NorthwindChineseMapping
+@model IEnumerable<Employee>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section my_script {
+    <script type="text/javascript">alert('hello');</script>
+}
+
+
+@section my_footer {
+    <div>
+        <hr>
+        <h1>Global-star footer.</h1>
+    </div>
+}
+
+
+@{ 
+    ViewBag.MvcNamespace = "System.Web.Mvc";
+}
+
+類別是 @(ViewBag.MvcNamespace).Controller
+
+
+@{ 
+    ViewBag.Description = "<span style='font-weight:blod;'>這是描述文字</span>";
+}
+
+@*@ViewBag.Description*@
+@Html.Raw(ViewBag.Description)
+
+
+@*Razor 語法學習*@
+
+
+@*輸出單一變數*@
+<hr>
+@*輸出單一變數用「@」前綴即可*@
+<h3>
+    現在時間:@DateTime.Now <br>
+</h3>
+
+@*輸出空白、及含運算子的語法用「@()」包起來*@
+<h3>
+    @(ViewBag.m1 + " --- " + ViewBag.m2)
+</h3>
+
+
+@*在頁面中執行 C# 程式碼時，前後加上「@{ }」。*@
+<h3>
+    @{
+        var name = "Tim";
+        var message = "你好，我是 " + name;
+    }
+    @message
+</h3>
+
+
+@*在多行 C# 程式碼的 Razor 語法中插入 HTML 或其它文字內容，必需在每一行前加上一個「@:」*@
+@*ps、輸出 html 看來不需要用「@:」*@
+<h3>
+    @{
+        var message1 = "Hello Razor";
+        @:輸出訊息： <hr>
+        @message1
+    }
+</h3>
+
+@*Razor 伺服器端註解 => 用「????」包起來即可。*@
+
+@*如果要輸出「@」符號，用「@」當作跳脫字元。*@
+@@Chambers.
+
+
+@*if 區塊的使用方式 => 建議多加一個 null 的判斷，以避免變數未定義時在 View 中發生執行期的錯誤。*@
+@*另外如果需要再區塊中輸出大量的文字，只要在程式碼區塊裡的前後加上一個 html 標籤即可。*@
+
+<h3>
+    @if (ViewBag.IsEnabled != null && ViewBag.IsEnabled)
+    {
+        @:啟用
+        <span>啟用</span>
+        <h4>如果要輸出大量的文字，用 tag 包起來即可，像這樣不是用標準的也 ok，但還是使用標準 tag 語意上比較清楚。</h4>
+        <text>如果不要有任何預設的仕樣，可以用「text」這個特殊的標籤。
+            <p>P tag</p>
+            <h1>h1 tag</h1>
+            <h3>h3 tag</h3>
+            <span>span tag</span>
+        </text>
+    }
+    else
+    {
+        @:停用
+        <span>停用</span>
+    }
+</h3>
+
+
+@*也可以在多行 C# 程式碼中使用上面的技巧，利用「@:」或「<text>」做為 HTML 與 Razor 語法之間的切換。*@
+<h3>
+    @{
+
+        var is_valid = true;
+        if (is_valid)
+        {
+            <text>無權限!!</text>
+        }
+     }
+</h3>
+
+
+@*foreach 的使用一*@
+
+<ul>
+    @foreach (var item in Request.ServerVariables)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+
+@*foreach 的使用二*@
+@{ 
+    <h3>團隊成員</h3>
+    string[] teamMembers = { "Chambers","March3rd","Tim"};
+    foreach (var person in teamMembers) {
+            <p>@person</p>
+    }
+}
+
+
+
+
+
+
+
+
+
+<hr>
+@*end of Razor 語法學習*@
+
+
+@*========================================================*@
+
+    <h2>Dapper Sample</h2>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td> @item.EmployeeID </td>
+            <td> @item.EmployeeName </td>
+            <td> @item.Title </td>
+            <td> @item.TitleOfCourtesy </td>
+            <td> @item.Address </td>
+            <td> @item.Notes </td>
+            <br>
+        </tr>
+    }
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+
+
+
+

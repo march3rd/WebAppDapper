@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <h1>北風資料庫 - layout </h1>
+    <div>
+        @RenderBody()
+        @RenderSection("my_script",required: false)
+    </div>
+    @RenderSection("my_footer",required: false);
+</body>
+</html>
